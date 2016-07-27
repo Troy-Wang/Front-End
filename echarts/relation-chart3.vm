@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <script type="text/javascript" src="echarts.min.js"></script>
+    <script type="text/javascript" src="jquery-3.1.0.js"></script>
+    <title>relation-chart-example</title>
+</head>
+<body>
+    <div id="main" style="width:1000px;height:1000px;"></div>
+    <script type="text/javascript">
+        var dom = document.getElementById("main");
+        var myChart = echarts.init(dom);
+        var categories = ['Basic Info', 'Purchase Info', 'Asset Info', 'Other Info'];
+       var option = {
+        title: {
+            text: 'User Portrait'
+        },
+        tooltip: {},
+        animationDurationUpdate: 1500,
+        animationEasingUpdate: 'quinticInOut',
+        series : [
+            {
+                type: 'graph',
+                layout: 'none',
+                symbolSize: 100,
+                roam: true,
+                label: {
+                    normal: {
+                        show: true
+                    }
+                },
+                edgeSymbol: ['circle', 'circle'],
+                edgeSymbolSize: [10, 10],
+                edgeLabel: {
+                    normal: {
+                        textStyle: {
+                            fontSize: 20
+                        }
+                    }
+                },
+                data: [{
+                    name: '王二小',
+                    x: 550,
+                    y: 250,
+                    itemStyle: {
+                        normal: {
+                            color: '#9ACD32'
+                        }
+                    }
+                }, {
+                    name: '基本信息',
+                    x: 650,
+                    y: 300,
+                    itemStyle: {
+                        normal: {
+                            color: '#B23AEE'
+                        }
+                    }
+                }, {
+                    name: '男',
+                    x: 600,
+                    y: 300,
+                    itemStyle: {
+                        normal: {
+                            color: '#B23AEE'
+                        }
+                    }
+                }, {
+                    name: '1990.01.30',
+                    x: 650,
+                    y: 350,
+                    itemStyle: {
+                        normal: {
+                            color: '#B23AEE'
+                        }
+                    }
+                }, {
+                    name: '射手座',
+                    x: 700,
+                    y: 300,
+                    itemStyle: {
+                        normal: {
+                            color: '#B23AEE'
+                        }
+                    }
+                }, {
+                    name: '资产信息',
+                    x: 550,
+                    y: 200,
+                    itemStyle: {
+                        normal: {
+                            color: '#B22222'
+                        }
+                    }
+                }, {
+                    name: '购买信息',
+                    x: 550,
+                    y: 300,
+                    itemStyle: {
+                        normal: {
+                            color: '#7B68EE'
+                        }
+                    }
+                }, {
+                    name: '最多购买：100元',
+                    x: 550,
+                    y: 350,
+                    itemStyle: {
+                        normal: {
+                            color: '#7B68EE'
+                        }
+                    }
+                }, {
+                    name: '最早购买：2016.01.01',
+                    x: 500,
+                    y: 300,
+                    itemStyle: {
+                        normal: {
+                            color: '#7B68EE'
+                        }
+                    }
+                }, {
+                    name: '定期：20000元',
+                    x: 500,
+                    y: 150,
+                    itemStyle: {
+                        normal: {
+                            color: '#B22222'
+                        }
+                    }
+                }, {
+                    name: '活期：15000元',
+                    x: 550,
+                    y: 150,
+                    itemStyle: {
+                        normal: {
+                            color: '#B22222'
+                        }
+                    }
+                }, {
+                    name: '股票：20元',
+                    x: 600,
+                    y: 150,
+                    itemStyle: {
+                        normal: {
+                            color: '#B22222'
+                        }
+                    }
+                }],
+                links: [{
+                    source: 0,
+                    target: 1,
+                }, {
+                    source: 1,
+                    target: 2,
+                }, {
+                    source: 1,
+                    target: 3
+                }, {
+                    source: 1,
+                    target: 4
+                }, {
+                    source: 0,
+                    target: 5
+                }, {
+                    source: 0,
+                    target: 6
+                }, {
+                    source: 6,
+                    target: 7
+                }, {
+                    source: 6,
+                    target: 8
+                }, {
+                    source: 5,
+                    target: 9
+                }, {
+                    source: 5,
+                    target: 10
+                }, {
+                    source: 5,
+                    target: 11
+                }],
+                lineStyle: {
+                    normal: {
+                        opacity: 0.9,
+                        width: 2,
+                        curveness: 0.2
+                    }
+                }
+            }
+        ]
+    };
+    myChart.setOption(option);
+    </script>
+
+</body>
+</html>

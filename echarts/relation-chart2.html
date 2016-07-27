@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<script type="text/javascript" src="echarts.min.js"></script>
+	<script type="text/javascript" src="jquery-3.1.0.js"></script>
+	<title>relation-chart-example</title>
+</head>
+<body>
+	<div id="main" style="width:400px;height:400px;"></div>
+	<script type="text/javascript">
+		var dom = document.getElementById("main");
+		var myChart = echarts.init(dom);
+		var categories = ['Basic Info', 'Purchase Info', 'Asset Info', 'Other Info'];
+		var option = {
+			title: {
+	            text: 'User Portrait',
+	            subtext: 'Default layout',
+	            top: 'bottom',
+	            left: 'right'
+        	},
+        	tooltip: {},
+	        legend: [{
+	            data: categories.map(function(a) {
+	            	return a;
+	            })
+	        }],
+	        animationDuration: 1500,
+        	animationEasingUpdate: 'quinticInOut',
+	        series: [{
+	        	name: 'User Portrait',
+	            type: 'graph',
+	            layout: 'none',
+	            roam: true,
+	            label: {
+	                normal: {
+	                    position: 'right',
+	                    formatter: '{b}'
+	                }
+	            },
+	            draggable: true,
+	            data: [
+	            {
+	            	"name": "XPathResult",
+            		"value": 1,
+            		"category": 3
+	            },{
+	            	"name": "XPathNSResolver",
+            		"value": 10,
+            		"category": 3
+	            }
+	            ],
+	            categories: [
+				        {
+				            "name": "Basic Info",
+				            "keyword": {},
+				            "base": "Basic Info"
+				        },
+				        {
+				            "name": "Purchase Info",
+				            "keyword": {},
+				            "base": "Purchase Info"
+				        },
+				        {
+				            "name": "Asset Info",
+				            "keyword": {},
+				            "base": "Asset Info"
+				        },
+				        {
+				            "name": "Other",
+				            "keyword": {}
+				        }
+				    ],
+	            force: {
+	                // initLayout: 'circular'
+	                // gravity: 0
+	                // repulsion: 20,
+	                edgeLength: 50,
+	                repulsion: 20
+	            },
+	            edges: [
+	            {
+            		"source": 0,
+            		"target": 1
+        		}]
+	        }]
+	    };
+
+    myChart.setOption(option);
+	</script>
+</body>
+</html>
