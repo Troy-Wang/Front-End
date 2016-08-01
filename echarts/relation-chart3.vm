@@ -7,23 +7,23 @@
     <title>relation-chart-example</title>
 </head>
 <body>
-    <div id="main" style="width:1000px;height:1000px;"></div>
-    <script type="text/javascript">
-        var dom = document.getElementById("main");
-        var myChart = echarts.init(dom);
-        var categories = ['Basic Info', 'Purchase Info', 'Asset Info', 'Other Info'];
-       var option = {
+<div id="main" style="width:1000px;height:1000px;"></div>
+<script type="text/javascript">
+    var dom = document.getElementById("main");
+    var myChart = echarts.init(dom);
+    var categories = ['Basic Info', 'Purchase Info', 'Asset Info', 'Other Info'];
+    var option = {
         title: {
             text: 'User Portrait'
         },
         tooltip: {},
         animationDurationUpdate: 1500,
         animationEasingUpdate: 'quinticInOut',
-        series : [
+        series: [
             {
                 type: 'graph',
                 layout: 'none',
-                symbolSize: 100,
+                symbolSize: 80,
                 roam: true,
                 label: {
                     normal: {
@@ -31,7 +31,7 @@
                     }
                 },
                 edgeSymbol: ['circle', 'circle'],
-                edgeSymbolSize: [10, 10],
+                edgeSymbolSize: [5, 5],
                 edgeLabel: {
                     normal: {
                         textStyle: {
@@ -43,33 +43,62 @@
                     name: '王二小',
                     x: 550,
                     y: 250,
+                    symbolSize: 120,
                     itemStyle: {
                         normal: {
-                            color: '#9ACD32'
+                            color: '#c76919'
+                        }
+                    },
+                    label: {
+                        normal :{
+                            textStyle: {
+                                fontSize: 25
+                            }
                         }
                     }
                 }, {
-                    name: '基本信息',
+                    name: '基本信息'+'测呃呃',
                     x: 650,
-                    y: 300,
+                    y: 250,
+                    symbolSize: 100,
                     itemStyle: {
                         normal: {
-                            color: '#B23AEE'
+                            color: '#19c7b9'
+                        }
+                    }
+                }, {
+                    name: '资产信息',
+                    symbolSize: 100,
+                    x: 550,
+                    y: 200,
+                    itemStyle: {
+                        normal: {
+                            color: '#c76919'
+                        }
+                    }
+                }, {
+                    name: '购买信息',
+                    x: 550,
+                    y: 300,
+                    symbolSize: 100,
+                    itemStyle: {
+                        normal: {
+                            color: '#1984c7'
                         }
                     }
                 }, {
                     name: '男',
-                    x: 600,
-                    y: 300,
+                    x: 625,
+                    y: 225,
                     itemStyle: {
                         normal: {
-                            color: '#B23AEE'
+                            color: '#c71919'
                         }
                     }
                 }, {
                     name: '1990.01.30',
-                    x: 650,
-                    y: 350,
+                    x: 675,
+                    y: 225,
                     itemStyle: {
                         normal: {
                             color: '#B23AEE'
@@ -78,50 +107,14 @@
                 }, {
                     name: '射手座',
                     x: 700,
-                    y: 300,
+                    y: 250,
                     itemStyle: {
                         normal: {
                             color: '#B23AEE'
                         }
                     }
                 }, {
-                    name: '资产信息',
-                    x: 550,
-                    y: 200,
-                    itemStyle: {
-                        normal: {
-                            color: '#B22222'
-                        }
-                    }
-                }, {
-                    name: '购买信息',
-                    x: 550,
-                    y: 300,
-                    itemStyle: {
-                        normal: {
-                            color: '#7B68EE'
-                        }
-                    }
-                }, {
-                    name: '最多购买：100元',
-                    x: 550,
-                    y: 350,
-                    itemStyle: {
-                        normal: {
-                            color: '#7B68EE'
-                        }
-                    }
-                }, {
-                    name: '最早购买：2016.01.01',
-                    x: 500,
-                    y: 300,
-                    itemStyle: {
-                        normal: {
-                            color: '#7B68EE'
-                        }
-                    }
-                }, {
-                    name: '定期：20000元',
+                    name: '定期：\n?????元',
                     x: 500,
                     y: 150,
                     itemStyle: {
@@ -130,7 +123,7 @@
                         }
                     }
                 }, {
-                    name: '活期：15000元',
+                    name: '活期：?????元',
                     x: 550,
                     y: 150,
                     itemStyle: {
@@ -139,7 +132,7 @@
                         }
                     }
                 }, {
-                    name: '股票：20元',
+                    name: '股票：?????元',
                     x: 600,
                     y: 150,
                     itemStyle: {
@@ -147,53 +140,51 @@
                             color: '#B22222'
                         }
                     }
+                },  {
+                    name: 'Coming...',
+                    x: 550,
+                    y: 350,
+                    itemStyle: {
+                        normal: {
+                            color: '#7B68EE'
+                        }
+                    }
                 }],
-                links: [{
+                edges: [{
                     source: 0,
                     target: 1,
                 }, {
-                    source: 1,
+                    source: 0,
                     target: 2,
                 }, {
-                    source: 1,
+                    source: 0,
                     target: 3
                 }, {
                     source: 1,
                     target: 4
                 }, {
-                    source: 0,
+                    source: 1,
                     target: 5
                 }, {
-                    source: 0,
+                    source: 1,
                     target: 6
                 }, {
-                    source: 6,
+                    source: 2,
                     target: 7
                 }, {
-                    source: 6,
+                    source: 2,
                     target: 8
                 }, {
-                    source: 5,
+                    source: 2,
                     target: 9
                 }, {
-                    source: 5,
+                    source: 3,
                     target: 10
-                }, {
-                    source: 5,
-                    target: 11
-                }],
-                lineStyle: {
-                    normal: {
-                        opacity: 0.9,
-                        width: 2,
-                        curveness: 0.2
-                    }
-                }
+                }]
             }
         ]
     };
     myChart.setOption(option);
-    </script>
-
+</script>
 </body>
 </html>
