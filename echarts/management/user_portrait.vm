@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    #parse('common/flat-ui-css.vm')
+    <title>User Portrait</title>
+</head>
+<body>
+
+    #parse('common/navbar.vm')
+<div class="col-lg-6">
+    <div class="form-group">
+        <div class="input-group">
+            <input type="text" class="form-control" placeholder="Enter UserId">
+              <span class="input-group-btn">
+                <button class="btn btn-default" id="getPortrait" type="button">Go get the portrait!</button>
+              </span>
+        </div>
+    </div>
+</div>
+
+<div id="userAsset" style="width:500px;height:500px;overflow:hidden;"></div>
+<div id="userPortrait" style="width:1000px;height:1000px;overflow:hidden;"></div>
+<script type="text/javascript" src="../resources/echarts/echarts.min.js"></script>
+<script type="text/javascript">
+
+    function portrait(userId) {
+        var dom = document.getElementById("userPortrait");
+        var portraitChart = echarts.init(dom);
+        portraitChart.showLoading();
+        var categories = ['Basic Info', 'Purchase Info', 'Asset Info', 'Other Info'];
+        $.get('getUserPortrait?userId=' + userId, function (userPortraitInfo) {
+            portraitChart.hideLoading();
+            var option = {
+                title: {
+                    text: 'Portrait for User @' + userId
+                },
+                tooltip: {},
+                animationDurationUpdate: 1500,
+                animationEasingUpdate: 'quinticInOut',
+                series: [
+                    {
+                        type: 'graph',
+                        layout: 'none',
+                        symbolSize: 80,
+                        roam: true,
+                        label: {
+                            normal: {
+                                show: true
+                            }
+                        },
+                        edgeSymbol: ['circle', 'circle'],
+                        edgeSymbolSize: [5, 5],
+                        edgeLabel: {
+                            normal: {
+                                textStyle: {
+                                    fontSize: 20
+                                }
+                            }
+                        },
+                        data: [{
+                            name: userPortraitInfo.name,
+                            x: 550,
+                            y: 250,
+                            symbolSize: 120,
+                            itemStyle: {
+                                normal: {
+                                    color: '#c76919'
+                                }
+                            },
+                            label: {
+                                normal: {
+                                    textStyle: {
+                                        fontSize: 25
+                                    }
+                                }
+                            }
+                        }, {
+                            name: '基本信息',
+                            x: 650,
+                            y: 250,
+                            symbolSize: 100,
+                            itemStyle: {
+                                normal: {
+                                    color: '#19c7b9'
+                                }
+                            }
+                        }, {
+                            name: '资产信息',
+                            x: 550,
+                            y: 185,
+                            symbolSize: 100,
+                            itemStyle: {
+                                normal: {
+                                    color: '#c71969'
+                                }
+                            }
+                        }, {
+                            name: '购买信息',
+                            x: 550,
+                            y: 305,
+                            symbolSize: 100,
+                            itemStyle: {
+                                normal: {
+                                    color: '#1984c7'
+                                }
+                            }
+                        }, {
+                            name: '男',
+                            x: 625,
+                            y: 225,
+                            itemStyle: {
+                                normal: {
+                                    color: '#19c7b9'
+                                }
+                            }
+                        }, {
+                            name: userPortraitInfo.birthday,
+                            x: 675,
+                            y: 225,
+                            itemStyle: {
+                                normal: {
+                                    color: '#19c7b9'
+                                }
+                            }
+                        }, {
+                            name: userPortraitInfo.constellation,
+                            x: 690,
+                            y: 250,
+                            itemStyle: {
+                                normal: {
+                                    color: '#19c7b9'
+                                }
+                            }
+                        }, {
+                            name: userPortraitInfo.age + '岁',
+                            x: 675,
+                            y: 275,
+                            itemStyle: {
+                                normal: {
+                                    color: '#19c7b9'
+                                }
+                            }
+                        }, {
+                            name: userPortraitInfo.bornPlace,
+                            x: 625,
+                            y: 275,
+                            itemStyle: {
+                                normal: {
+                                    color: '#19c7b9'
+                                }
+                            }
+                        }, {
+                            name: '定期：\n?????元',
+                            x: 500,
+                            y: 150,
+                            itemStyle: {
+                                normal: {
+                                    color: '#c71969'
+                                }
+                            }
+                        }, {
+                            name: '活期：\n?????元',
+                            x: 550,
+                            y: 150,
+                            itemStyle: {
+                                normal: {
+                                    color: '#c71969'
+                                }
+                            }
+                        }, {
+                            name: '股票：\n?????元',
+                            x: 600,
+                            y: 150,
+                            itemStyle: {
+                                normal: {
+                                    color: '#c71969'
+                                }
+                            }
+                        }, {
+                            name: 'Coming Soon...',
+                            x: 550,
+                            y: 350,
+                            itemStyle: {
+                                normal: {
+                                    color: '#1984c7'
+                                }
+                            }
+                        }],
+                        links: [{
+                            source: 0,
+                            target: 1,
+                        }, {
+                            source: 0,
+                            target: 2,
+                        }, {
+                            source: 0,
+                            target: 3
+                        }, {
+                            source: 1,
+                            target: 4
+                        }, {
+                            source: 1,
+                            target: 5
+                        }, {
+                            source: 1,
+                            target: 6
+                        }, {
+                            source: 1,
+                            target: 7
+                        }, {
+                            source: 1,
+                            target: 8
+                        }, {
+                            source: 2,
+                            target: 9
+                        }, {
+                            source: 2,
+                            target: 10
+                        }, {
+                            source: 2,
+                            target: 11
+                        }, {
+                            source: 3,
+                            target: 12
+                        }]
+                    }
+                ]
+            };
+            portraitChart.setOption(option);
+        });
+    }
+
+    function assetPie(userId) {
+        var dom = document.getElementById("userAsset");
+        var assetChart = echarts.init(dom);
+        assetChart.showLoading();
+        $.get('getUserAssetPie?userId=' + userId, function (userAssetInfo) {
+            assetChart.hideLoading();
+            var option = {
+                title: {
+                    text: 'Asset Pie for User @' + userId,
+                    left: 'center'
+                },
+                tooltip: {
+                    trigger: 'item',
+                    formatter: "{a} <br/>{b}: {c} ({d}%)"
+                },
+                legend: {
+                    orient: 'vertical',
+                    x: 'left',
+                    data: ['定期(元)', '活期(元)', '股票(元)', '其它(元)']
+                },
+                series: [
+                    {
+                        name: '资产信息',
+                        type: 'pie',
+                        radius: ['50%', '70%'],
+                        avoidLabelOverlap: false,
+                        label: {
+                            normal: {
+                                show: false,
+                                position: 'center'
+                            },
+                            emphasis: {
+                                show: true,
+                                textStyle: {
+                                    fontSize: '30',
+                                    fontWeight: 'bold'
+                                }
+                            }
+                        },
+                        labelLine: {
+                            normal: {
+                                show: false
+                            }
+                        },
+                        data: [
+                            {value: userAssetInfo.regularAsset, name: '定期(元)'},
+                            {value: userAssetInfo.currentAsset, name: '活期(元)'},
+                            {value: userAssetInfo.stockAsset, name: '股票(元)'},
+                            {value: userAssetInfo.otherAsset, name: '其它(元)'},
+                        ]
+                    }
+                ]
+            };
+            assetChart.setOption(option);
+        });
+    }
+
+    $('#getPortrait').click(function (e) {
+        var userId = $('.form-control').val();
+        portrait(userId);
+        assetPie(userId);
+    });
+</script>
+
+</body>
+</html>

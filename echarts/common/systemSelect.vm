@@ -1,0 +1,11 @@
+<form class="form-horizontal" role="form">
+    <div class="form-group">
+        <label class="col-sm-2 control-label">想要对哪个系统进行权限管理 ?</label>
+        <div class="col-sm-10" id="systemName" systemName="${systemName}">
+            <select id="systemSelect" class="form-control">
+                <option>financecrm</option>
+                <option>financeboss</option>
+            </select>
+        </div>
+    </div>
+</form>

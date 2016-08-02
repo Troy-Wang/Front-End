@@ -1,0 +1,62 @@
+<!-- Static navbar -->
+<div class="navbar navbar-inverse navbar-static-top" role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+            </button>
+            <a class="navbar-brand" href="#nav">CRM</a>
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Management<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#query">Query</a></li>
+                        <li><a href="#update">Update</a></li>
+                        <li class="divider"></li>
+                        <li><a href="/management/portrait">User Portrait</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#todo1">TODO 1</a></li>
+                        <li><a href="#todo2">TODO 2</a></li>
+                    </ul>
+                </li>
+                <li><a href="#Mining">Mining</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">权限管理<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a id="managerUser" href="/getUserList">用户管理</a></li>
+                        <li class="divider"></li>
+                        <li><a id="managerRole" href="/getRoleList">角色管理</a></li>
+                        <li class="divider"></li>
+                        <li><a id="managerAuth" href="/getAuthList">权限管理</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">More<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#feedback">Feedback</a></li>
+                    </ul>
+                </li>
+            </ul>
+
+            <div class="navbar-form navbar-right">
+                <a id="userName" href="#"></a>
+                <button id="logout" type="logout" class="btn btn-success">Log out</button>
+            </div>
+
+        </div><!--/.nav-collapse -->
+    </div>
+</div>
+<script type="text/javascript" src="../resources/jquery/jquery-3.1.0.js"></script>
+<script src="../resources/flat-ui/dist/js/application.js"></script>
+<script src="../resources/flat-ui/dist/js/flat-ui.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#logout").click(function () {
+            htmlobj = $.ajax({url: "/logout", async: false});
+            $("#myDiv").html(htmlobj.responseText);
+        });
+    });
+</script>
