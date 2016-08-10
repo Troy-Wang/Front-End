@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+##<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Finance CRM</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Loading Bootstrap -->
+    <link href="resources/flat-ui/dist/css/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Loading Flat UI -->
+    <link href="resources/flat-ui/dist/css/flat-ui.css" rel="stylesheet">
+
+    <link rel="shortcut icon" href="resources/flat-ui/img/favicon.ico">
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements. All other JS at the end of file. -->
+    <!--[if lt IE 9]>
+    <script src="../../dist/js/vendor/html5shiv.js"></script>
+    <script src="../../dist/js/vendor/respond.min.js"></script>
+    <![endif]-->
+
+    #parse( 'common/squareAnimation.vm')
+
+</head>
+<body>
+
+
+<div id="loading">
+    <div id="loading-center">
+        <div id="loading-center-absolute">
+            <div class="object" id="object_one"></div>
+            <div class="object" id="object_two"></div>
+            <div class="object" id="object_three"></div>
+            <div class="object" id="object_four"></div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Static navbar -->
+    #parse( 'common/navbar.vm' )
+
+<div class="container-fluid">
+    <div class="jumbotron">
+        <div class="row clearfix">
+            <div class="col-md-4 col-xs-12">
+                <img src="resources/img/nav.png" alt="FinanceCRM">
+            </div>
+            <div class="col-md-8 col-xs-12">
+                <h3>使用Finance-CRM探索用户的一切</h3>
+                <p>Finance-CRM是一个提供用户信息管理与挖掘的平台，可以基于用户信息提供更契合的营销策略。更多功能尽请期待！
+                    <!--Finance-CRM is a platform for user info
+                    management, mining, and user-info-based marketing. Authentication
+                    management is also provided. Expect more in the near future... :)--></p>
+                <p>
+                    <a class="btn btn-lg btn-primary" href="/learn" role="button">了解更多 &raquo;</a>
+                    <a class="btn btn-lg btn-primary" href="/about" role="button">关于我们 &raquo;</a>
+                </p>
+                <p>您可以试用以下热门功能，或者使用页面顶端的导航探索更多。</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-10">
+            <div class="row">
+                <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
+                    <div class="tile">
+                        <img src="resources/flat-ui/dist/img/icons/svg/ribbon.svg" alt="ribbon" class="tile-hot-ribbon">
+                        <img src="resources/flat-ui/dist/img/icons/svg/loop.svg" alt="Portrait" class="tile-image
+                        big-illustration">
+                        <h3 class="tile-title">用户画像</h3>
+                        <p>从这里去获取由基本信息、资产信息等构成的用户个人画像</p>
+                        <a class="btn btn-primary btn-large btn-block" href="/management/portrait">Get Protrait！</a>
+                    </div>
+                </div>
+
+                <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
+                    <div class="tile">
+                        <img src="resources/flat-ui/dist/img/icons/svg/ribbon.svg" alt="ribbon" class="tile-hot-ribbon">
+                        <img src="resources/flat-ui/dist/img/icons/svg/map.svg" alt="Statistics" class="tile-image">
+                        <h3 class="tile-title">用户统计</h3>
+                        <p>从这里去获取理财平台所有用户的统计信息</p>
+                        <a class="btn btn-primary btn-large btn-block" href="/management/statistics">Get Statistic！</a>
+                    </div>
+                </div>
+
+                <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
+                    <div class="tile">
+                        <img src="resources/flat-ui/dist/img/icons/svg/pencils.svg" alt="Mining" class="tile-image">
+                        <h3 class="tile-title">用户信息挖掘</h3>
+                        <p>从这里去探索用户与用户、用户与产品间微妙而有趣的关系</p>
+                        <a class="btn btn-primary btn-large btn-block" href=/mining">Go mining！</a>
+                    </div>
+                </div>
+
+                <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
+                    <div class="tile">
+                        <img src="resources/flat-ui/dist/img/icons/svg/compas.svg" alt="Authentication"
+                             class="tile-image">
+                        <h3 class="tile-title">权限管理</h3>
+                        <p>在这里管理Finance-CRM及其它相关系统的用户权限</p>
+                        <a class="btn btn-primary btn-large btn-block" href="/getAuthList">Manage Auth</a>
+                    </div>
+
+                </div>
+            </div> <!-- /row -->
+        </div>
+    </div> <!-- /row -->
+</div> <!-- /container -->
+
+##退出事件承载标签,误删
+<div style="text-align:right;" id="myDiv">
+
+    <script>
+        $(document).ready(function () {
+            $("#logout").click(function () {
+                htmlobj = $.ajax({url: "/logout", async: false});
+                $("#myDiv").html(htmlobj.responseText);
+            });
+        });
+    </script>
+
+    <script>
+
+        $(window).load(function () {
+            $("#loading").fadeOut(1000);
+        })
+
+        htmlobj = $.ajax({url: "/userName", async: false});
+        $("#userName").html(htmlobj.responseText);
+
+    </script>
+
+</body>
+</html>

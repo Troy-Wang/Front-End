@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    #parse('common/flat-ui-css.vm')
+    <title>User Statistics</title>
+</head>
+<body>
+    #parse('common/navbar.vm')
+
+<div class="container">
+    <h4>理财平台用户统计信息</h4>
+    <div class="row">
+        <div class="col-sm-6 col-md-6">
+            <div class="thumbnail">
+                <div class="caption">
+                    <h6>活跃用户占比</h6>
+                </div>
+                <div id="new_user_distri" style="height:400px;overflow:hidden;"></div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-md-6">
+            <div class="thumbnail">
+                <div class="caption">
+                    <h6>用户性别分布</h6>
+                </div>
+                <div id="user_gender_distri" style="height:400px;overflow:hidden;"></div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-6 col-md-8">
+            <div class="thumbnail">
+                <div class="caption">
+                    <h6>用户年龄分布</h6>
+                </div>
+                <div id="user_age_distri" style="height:400px;overflow:hidden;"></div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-md-4">
+            <div class="thumbnail">
+                <div class="caption">
+                    <h6>用户资产分布</h6>
+                </div>
+                <div id="user_asset_distri" style="height:400px;overflow:hidden;"></div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12 col-md-12">
+            <div class="thumbnail">
+                <div class="caption">
+                    <h6>用户所在省份分布</h6>
+                </div>
+                <div id="user_province_distri" style="height:400px;overflow:hidden;"></div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script type="text/javascript" src="../resources/echarts/echarts.min.js"></script>
+<script type="text/javascript" src="../resources/echarts/china_map.js"></script>
+<script type="text/javascript">
+
+    function newUserDistribution() {
+        var dom = document.getElementById("new_user_distri");
+        var newUserDistri = echarts.init(dom);
+        newUserDistri.showLoading();
+        $.get('getUserPortrait?userId=12345678', function (newUserDistribution) {
+            newUserDistri.hideLoading();
+            var option = {
+                tooltip: {
+                    formatter: "{a} <br/>{b} : {c}%"
+                },
+                toolbox: {
+                    feature: {
+                        restore: {},
+                        saveAsImage: {}
+                    }
+                },
+                series: [
+                    {
+                        name: '活跃用户占比',
+                        type: 'gauge',
+                        detail: {formatter: '{value}%'},
+                        data: [{value: 88, name: '活跃用户占比'}]
+                    }
+                ]
+            };
+            newUserDistri.setOption(option);
+        });
+    }
+
+    function userGenderDistribution() {
+        var dom = document.getElementById("user_gender_distri");
+        var userGenderDistri = echarts.init(dom);
+        userGenderDistri.showLoading();
+        $.get('getUserBasicInfoDistri', function (userGenderDistribution) {
+            userGenderDistri.hideLoading();
+            var option = {
+                tooltip: {
+                    trigger: 'item',
+                    formatter: "{a} <br/>{b} : {c} ({d}%)"
+                },
+                legend: {
+                    orient: 'vertical',
+                    left: 'left',
+                    data: ['男', '女']
+                },
+                series: [
+                    {
+                        name: '性别分布',
+                        type: 'pie',
+                        radius: '55%',
+                        center: ['50%', '50%'],
+                        data: [
+                            {value: userGenderDistribution.maleUserCount, name: '男'},
+                            {value: userGenderDistribution.femaleUserCount, name: '女'},
+                        ],
+                        color: ['#00CED1', '#FF6A6A'],
+                        itemStyle: {
+                            emphasis: {
+                                shadowBlur: 10,
+                                shadowOffsetX: 0,
+                                shadowColor: 'rgba(0, 0, 0, 0.5)'
+                            }
+                        }
+                    }
+                ]
+            };
+            userGenderDistri.setOption(option);
+        });
+    }
+
+    function userAgeDistribution() {
+        var dom = document.getElementById("user_age_distri");
+        var userAgeDistri = echarts.init(dom);
+        userAgeDistri.showLoading();
+        $.get('getUserBasicInfoDistri', function (userAgeDistribution) {
+            userAgeDistri.hideLoading();
+            var option = {
+                color: ['#3398DB'],
+                tooltip: {
+                    trigger: 'axis',
+                    axisPointer: {            // 坐标轴指示器，坐标轴触发有效
+                        type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+                    }
+                },
+                grid: {
+                    left: '3%',
+                    right: '4%',
+                    bottom: '3%',
+                    containLabel: true
+                },
+                xAxis: [
+                    {
+                        type: 'category',
+                        data: ['18-30', '30-40', '40-50', '50-60', '>60'],
+                        axisTick: {
+                            alignWithLabel: true
+                        }
+                    }
+                ],
+                yAxis: [
+                    {
+                        type: 'value'
+                    }
+                ],
+                series: [
+                    {
+                        name: '用户数量',
+                        type: 'bar',
+                        barWidth: '60%',
+                        data: [userAgeDistribution.userAgeCount.stairs1, userAgeDistribution.userAgeCount.stairs2,
+                            userAgeDistribution.userAgeCount.stairs3, userAgeDistribution.userAgeCount.stairs4,
+                            userAgeDistribution.userAgeCount.stairs5]
+                    }
+                ]
+            };
+            userAgeDistri.setOption(option);
+        });
+    }
+
+    function userAssetDistribution() {
+        var dom = document.getElementById("user_asset_distri");
+        var userAssetDistri = echarts.init(dom);
+        userAssetDistri.showLoading();
+        $.get('getUserPortrait?userId=12345678', function (userAssetDistribution) {
+            userAssetDistri.hideLoading();
+            var option = {
+                tooltip: {
+                    trigger: 'item',
+                    formatter: "{a} <br/>{b} : {c} ({d}%)"
+                },
+                legend: {
+                    x: 'center',
+                    y: 'bottom',
+                    data: ['活期', '定期', '股票', '其它']
+                },
+                toolbox: {
+                    show: true,
+                    feature: {
+                        mark: {show: true},
+                        dataView: {show: true, readOnly: false},
+                        magicType: {
+                            show: true,
+                            type: ['pie', 'funnel']
+                        },
+                        restore: {show: true},
+                        saveAsImage: {show: true}
+                    }
+                },
+                calculable: true,
+                series: [
+                    {
+                        name: '用户资产分布',
+                        type: 'pie',
+                        radius: [30, 110],
+                        center: ['50%', '50%'],
+                        roseType: 'area',
+                        data: [
+                            {value: 100000, name: '活期'},
+                            {value: 50000, name: '定期'},
+                            {value: 15000, name: '股票'},
+                            {value: 2500, name: '其它'},
+                        ]
+                    }
+                ]
+            };
+            userAssetDistri.setOption(option);
+        });
+    }
+
+    function userProvinceDistribution() {
+        var dom = document.getElementById("user_province_distri");
+        var userProvinceDistri = echarts.init(dom);
+        userProvinceDistri.showLoading();
+        $.get('getUserPortrait?userId=12345678', function (userProvinceDistribution) {
+            userProvinceDistri.hideLoading();
+            var option = {
+                tooltip: {
+                    trigger: 'item'
+                },
+                visualMap: {
+                    min: 0,
+                    max: 35,
+                    left: 'left',
+                    top: 'bottom',
+                    text: ['多', '少'],           // 文本，默认为数值文本
+                    calculable: true,
+                    color: ['#00688B', '#00C5CD', '#00FFFF', '#FFFFFF']
+                },
+                toolbox: {
+                    show: true,
+                    orient: 'vertical',
+                    left: 'right',
+                    top: 'center',
+                    feature: {
+                        dataView: {readOnly: false},
+                        restore: {},
+                        saveAsImage: {}
+                    }
+                },
+                series: [
+                    {
+                        name: '定期',
+                        type: 'map',
+                        mapType: 'china',
+                        roam: false,
+                        label: {
+                            normal: {
+                                show: true
+                            },
+                            emphasis: {
+                                show: true
+                            }
+                        },
+                        data: [
+                            {name: '北京', value: 1},
+                            {name: '天津', value: 2},
+                            {name: '上海', value: 3},
+                            {name: '重庆', value: 4},
+                            {name: '河北', value: 5},
+                            {name: '河南', value: 6},
+                            {name: '云南', value: 7},
+                            {name: '辽宁', value: 8},
+                            {name: '黑龙江', value: 9},
+                            {name: '湖南', value: 10},
+                            {name: '安徽', value: 11},
+                            {name: '山东', value: 12},
+                            {name: '新疆', value: 13},
+                            {name: '江苏', value: 14},
+                            {name: '浙江', value: 15},
+                            {name: '江西', value: 16},
+                            {name: '湖北', value: 17},
+                            {name: '广西', value: 18},
+                            {name: '甘肃', value: 19},
+                            {name: '山西', value: 20},
+                            {name: '内蒙古', value: 21},
+                            {name: '陕西', value: 22},
+                            {name: '吉林', value: 23},
+                            {name: '福建', value: 24},
+                            {name: '贵州', value: 25},
+                            {name: '广东', value: 26},
+                            {name: '青海', value: 27},
+                            {name: '西藏', value: 28},
+                            {name: '四川', value: 29},
+                            {name: '宁夏', value: 30},
+                            {name: '海南', value: 31},
+                            {name: '台湾', value: 0},
+                            {name: '香港', value: 0},
+                            {name: '澳门', value: 0}
+                        ]
+                    }
+                ]
+            };
+            userProvinceDistri.setOption(option);
+        });
+    }
+
+    newUserDistribution();
+    userGenderDistribution();
+    userAgeDistribution();
+    userAssetDistribution();
+    userProvinceDistribution();
+</script>
+
+</body>
